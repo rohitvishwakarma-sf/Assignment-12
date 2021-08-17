@@ -23,7 +23,7 @@ import {UserRepository} from '../repositories';
 export class UserController {
   constructor(
     @repository(UserRepository)
-    public userRepository : UserRepository,
+    public userRepository: UserRepository,
   ) {}
 
   @post('/users')
@@ -44,7 +44,6 @@ export class UserController {
     })
     user: Omit<User, 'id'>,
   ): Promise<User> {
-    
     return this.userRepository.create(user);
   }
 
@@ -53,9 +52,7 @@ export class UserController {
     description: 'User model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(User) where?: Where<User>,
-  ): Promise<Count> {
+  async count(@param.where(User) where?: Where<User>): Promise<Count> {
     return this.userRepository.count(where);
   }
 
@@ -71,9 +68,7 @@ export class UserController {
       },
     },
   })
-  async find(
-    @param.filter(User) filter?: Filter<User>,
-  ): Promise<User[]> {
+  async find(@param.filter(User) filter?: Filter<User>): Promise<User[]> {
     return this.userRepository.find(filter);
   }
 
@@ -108,7 +103,7 @@ export class UserController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>
+    @param.filter(User, {exclude: 'where'}) filter?: FilterExcludingWhere<User>,
   ): Promise<User> {
     return this.userRepository.findById(id, filter);
   }
@@ -128,10 +123,7 @@ export class UserController {
     })
     user: User,
   ): Promise<void> {
-    
     user.modifiedOn = new Date().toString();
-    console.log("date is ",user.modifiedOn);
-    
     await this.userRepository.updateById(id, user);
   }
 

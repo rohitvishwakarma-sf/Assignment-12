@@ -7,6 +7,10 @@ export class Role extends Entity {
     id: true,
     generated: false,
     required: true,
+    jsonSchema:{
+      type:'string',
+      enum:['admin','subscriber','super_admin']
+    }
   })
   key: string;
 

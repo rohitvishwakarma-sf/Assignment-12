@@ -1,22 +1,24 @@
 import { Customer } from "./customer.model";
+import { Role } from "./role.model";
 
-export enum Role {
+export enum ROLE {
   super_admin = "super_admin",
   admin = "admin",
   subscriber = "subscriber",
 }
 export class User{
 id!: number;
-firstname: string;
-middlename?: string;
+firstName: string;
+middleName?: string;
 lastname: string;
 email: string;
 phone: string;
 address: string;
-rolekey: Role;
+roleKey: ROLE;
 createdon?: string;
 modifiedon?: string;
-Customer:Customer;
+customer:Customer;
+roles!:Role;
 
 constructor(
     id: number,
@@ -25,21 +27,21 @@ constructor(
   lastName: string,
   email: string,
   phone: string,
-  rolekey: Role,
+  rolekey: ROLE,
   address: string,
   Customer:Customer
 ) {
     this.id = id;
-    this.firstname = firstName;
-    this.middlename = middleName;
+    this.firstName = firstName;
+    this.middleName = middleName;
     this.lastname = lastName;
     this.email = email;
     this.phone = phone;
-    this.rolekey = rolekey;
+    this.roleKey = rolekey;
     this.address = address;
     this.createdon="";
     this.modifiedon="";
-    this.Customer = Customer;
+    this.customer = Customer;
   
 }
 

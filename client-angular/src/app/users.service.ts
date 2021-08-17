@@ -12,18 +12,22 @@ export class UsersService implements IUSERCRUD<User> {
   users: User[] = [];
   constructor(private http: HttpClient) {}
 
+  // fetch users
   async getUsers(): Promise<User[]> {
-    this.users = await this.http.get<User[]>(baseURL).toPromise();
+    const url = `${baseURL}/users?filter[include][]=customer&filter[include][]=roles`;
+    this.users = await this.http.get<User[]>(url).toPromise();
     return this.users.slice();
   }
 
+  // create new user
   createUser(obj: User): void {
     throw new Error('Method not implemented.');
   }
 
   // deleting user
   deleteUser(user: User): Observable<any> {
-    return this.http.delete<string>(baseURL + '/' + user.id).pipe(
+    const url = `${baseURL}/users/${user.id}`;
+    return this.http.delete<string>(url).pipe(
       map(() => {
         const index = this.users.findIndex((u) => u.id === user.id);
         this.users.splice(index, 1);
@@ -34,14 +38,15 @@ export class UsersService implements IUSERCRUD<User> {
 
   // update user
   saveUser(obj: User): Observable<any> {
-    return this.http.patch(baseURL + '/save', obj);
-  }
+    const url = `${baseURL}/users/${obj.id}`;
+    const user = {
+      ...obj,
+      customer: undefined,
+      roles: undefined,
+      createdOn: undefined,
+      modifiedOn: undefined,
+    };
 
-  async getCustomers(fields: string[]): Promise<any> {
-    let params = fields.join('&fields=');
-    const res = await fetch(`${baseURL}/customers/?fields=${params}`);
-    const data = await res.json();
-    const customers = data as { name: string; user_id: number }[];
-    return customers;
+    return this.http.patch(url, user);
   }
 }

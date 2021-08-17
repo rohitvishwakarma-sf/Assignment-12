@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {User, UserWithRelations} from './user.model';
 
 @model()
 export class Customer extends Entity {
@@ -27,12 +28,6 @@ export class Customer extends Entity {
   address: string;
 
   @property({
-    type: 'number',
-    required: true,
-  })
-  userId: number;
-
-  @property({
     type: 'date',
     default: 'now',
   })
@@ -43,6 +38,8 @@ export class Customer extends Entity {
   })
   modifiedOn?: string;
 
+  @hasMany(() => User)
+  users: User[];
 
   constructor(data?: Partial<Customer>) {
     super(data);
@@ -51,6 +48,7 @@ export class Customer extends Entity {
 
 export interface CustomerRelations {
   // describe navigational properties here
+  users?:UserWithRelations[];
 }
 
 export type CustomerWithRelations = Customer & CustomerRelations;

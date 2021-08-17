@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Role, User } from 'src/app/user.model';
+import { ROLE, User } from 'src/app/user.model';
 import { UsersService } from 'src/app/users.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class RowComponent implements OnInit {
   }
 
   roleKeys(): string[] {
-    return Object.keys(Role);
+    return Object.keys(ROLE);
   }
   ngOnInit(): void {}
 
@@ -43,7 +43,7 @@ export class RowComponent implements OnInit {
       },
       () => {
         this.deleting = false;
-        console.log('deleted user ' + this.user.firstname);
+        console.log('deleted user ' + this.user.firstName);
       }
     );
   }
@@ -51,7 +51,6 @@ export class RowComponent implements OnInit {
     this.editMode = false;
     this.saving = true;
     this.usersService.saveUser(this.user).subscribe(() => {
-      console.log('changes saved');
       this.saving = false;
     });
   }
@@ -60,3 +59,5 @@ export class RowComponent implements OnInit {
     this.user = JSON.parse(JSON.stringify(this.oldUser));
   }
 }
+
+/// Up NoSymbol Up

@@ -4,6 +4,6 @@ export class Customer{
     website?:string;
     address!:string;
     user_id!:string;
-    createdon!:string;
-    modifiedon!:string;
+    createdOn!:string;
+    modifiedOn!:string;
 }

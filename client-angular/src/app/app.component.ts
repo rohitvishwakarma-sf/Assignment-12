@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Role, User } from './user.model';
+import { ROLE, User } from './user.model';
 import { UsersService } from './users.service';
 
 @Component({
@@ -24,8 +24,6 @@ export class AppComponent implements OnInit {
     this.btnText = 'Loading...';
     this.users = await this.usersService.getUsers();
     this.loading = false;
-    console.log(this.users[0]);
-    
     this.btnText = 'Refresh';
   }
 }
